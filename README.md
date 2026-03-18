@@ -69,8 +69,11 @@ To create a seamless, standardized, and secure bridge between ancient medical wi
  ┃ ┃ ┣ 📂 components    # Layout & Dashboard UI
  ┃ ┃ ┣ 📂 context       # Activity Tracking Context
  ┃ ┃ ┣ 📂 pages         # Core Workflows (Search, Auth, Users, etc.)
- ┃ ┃ ┗ 📂 services      # API Client Utilities
- ┃ ┗ 📜 package.json
+ ┃ ┃ ┣ 📂 services      # API Client Utilities
+ ┃ ┃ ┣ 📜 App.tsx       # Main App Component
+ ┃ ┃ ┣ 📜 index.css     # Global Styles
+ ┃ ┃ ┗ 📜 index.tsx     # React Entry Point
+ ┃ ┗ 📜 package.json    # Frontend Dependencies
  ┣ 📂 src               # Node.js Core Backend
  ┃ ┣ 📂 models          # Data Entity Definitions
  ┃ ┣ 📂 routes          # API Resource Handlers
@@ -79,6 +82,12 @@ To create a seamless, standardized, and secure bridge between ancient medical wi
  ┃ ┣ 📂 utils           # Shared Utilities
  ┃ ┗ 📜 server.js       # Core API Server
  ┣ 📂 scripts           # Data Utility Scripts
+ ┃ ┗ 📜 generate_namaste_data.js # Data Generation Script
+ ┣ 📜 .env              # Environment Variables
+ ┣ 📜 package.json      # Node.js Dependencies & Scripts
+ ┣ 📜 project_details.txt # Detailed project documentation
+ ┣ 📜 vercel.json       # Vercel Deployment Configuration
+ ┣ 📜 verify_api.js     # API Verification Script
  ┗ 📜 README.md         # Full Documentation
 ```
 

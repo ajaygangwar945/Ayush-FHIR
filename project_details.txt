@@ -1,0 +1,58 @@
+Project Documentation: Ayush FHIR Integration Platform
+=====================================================
+
+1. Overview
+-----------
+The Ayush FHIR Integration Platform is a specialized healthcare interoperability solution. It acts as a bridge between traditional Indian medicine (Ayurveda, Yoga, Unani, Siddha, Homoeopathy) and modern clinical data standards (HL7 FHIR, ICD-11). It allows practitioners to digitize and share traditional medical terminology using globally recognized formats.
+
+2. Languages and Technologies Used
+----------------------------------
+### Frontend
+* React 18 & TypeScript: Core library and language for building the user interface.
+* Tailwind CSS: For fast, responsive, and modern styling.
+* Framer Motion: For implementing smooth animations and UI transitions.
+* React Query: For efficient and cached data fetching from the backend.
+
+### Backend
+* Node.js & JavaScript: The runtime environment and scripting language for the server.
+* Express.js: The web application framework used to build robust RESTful APIs.
+* Jest & Supertest: For API testing and automated unit verification.
+
+### Key Libraries & Packages
+* fhir: For parsing and validating HL7 FHIR standards.
+* jsonwebtoken (JWT) & bcryptjs: For secure user authentication, token generation, and password hashing.
+* csv-parser: For parsing the underlying CSV datasets containing the terminology.
+* node-cache: For in-memory data caching, ensuring high-speed access to heavily queried terms.
+* helmet & cors: For securing HTTP headers and handling Cross-Origin Resource Sharing.
+
+3. Detailed Topics Covered
+--------------------------
+* Healthcare Interoperability (HL7 FHIR R4): The system uses the global FHIR standard to represent traditional terms as standard resources (`CodeSystem` and `ConceptMap`), enabling seamless electronic health record (EHR) exchange.
+* Medical Terminologies (NAMASTE & ICD-11): The project focuses on "NAMASTE", a standardized terminology for traditional medicine. It maps these localized terms to the internationally recognized "ICD-11 TM2" classification.
+* Advanced Search & Fuzzy Matching: Implements high-performance search logic on the backend to quickly traverse large CSV datasets stored in-memory.
+* Security & Authentication: Robust login and token validation system to protect the Admin Suite and secure endpoints.
+* Real-time Analytics: Dynamic tracking and monitoring of terminology distribution, API usage, and system health status.
+
+4. Full Working & System Flow
+-----------------------------
+### Step 1: Data Ingestion & Storage
+The application does not heavily rely on a traditional database (like SQL/MongoDB) initially. Instead, it maintains persistent standardized datasets as CSV files in the `api/data` folder. On server startup, `csvParser.js` parses these files, and `dataStore.js` loads the contents into an in-memory cache using `node-cache`. This provides extremely low latency when users search for medical terms.
+
+### Step 2: The Translation Hub
+When a user searches for an Ayush condition, the backend's `icdService.js` and `fhirService.js` look up the matching record. The platform performs a bidirectional mapping, linking the specific NAAMSTE term with its corresponding ICD-11 diagnostic code. 
+
+### Step 3: FHIR Standardization
+Once a term is mapped, the backend dynamically generates a standard HL7 FHIR JSON payload representing this concept map. A hospital system can digitally consume this FHIR payload seamlessly without needing to natively understand Ayurveda or Unani concepts.
+
+### Step 4: Admin & Audit
+The `auditService.js` logs system actions, search queries, and potential system health issues. Authorized administrators (verified via `jsonwebtoken`) can access the Admin panel to upload new CSV datasets, manage users, and view analytic dashboards. 
+
+### Step 5: The User Interface
+The frontend (React + Tailwind) provides distinct workflows: 
+* A Search Page for querying specific traditional conditions.
+* A Dashboard for dynamic analytics.
+* Secure forms for User Authentication. 
+All interactions are optimized for both mobile and desktop via a mobile-first UI approach.
+
+### Step 6: Deployment
+The frontend is built and served via static hosting, and the Node/Express backend acts as Serverless Application functions deployed on Vercel. Whenever changes are pushed to GitHub, Vercel automatically rebuilds and deploys the platform using `vercel.json` configurations.
