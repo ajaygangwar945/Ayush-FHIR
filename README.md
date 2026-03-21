@@ -19,7 +19,9 @@
 
 The **Ayush FHIR Integration Platform** is a specialized healthcare interoperability solution dedicated to the digital transformation of **Traditional Indian Medicine** (Ayurveda, Yoga, Unani, Siddha, Homoeopathy).
 
-### 🎯 Our Mission
+---
+
+## 🎯 Our Mission
 
 To create a seamless, standardized, and secure bridge between ancient medical wisdom and modern clinical data standards (HL7 FHIR), enabling traditional healthcare practitioners to participate in the global digital health ecosystem while maintaining the unique integrity of Ayush terminology.
 
