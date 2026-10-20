@@ -61,36 +61,76 @@ To create a seamless, standardized, and secure bridge between ancient medical wi
 ## 📂 Project Structure
 
 ```text
-📦 SIH
- ┣ 📂 api               # Serverless Deployment Bundle
- ┃ ┣ 📂 data            # Standardized CSV Datasets
- ┃ ┗ 📜 index.js        # Vercel Entry Point
- ┣ 📂 frontend          # React + TypeScript Frontend
- ┃ ┣ 📂 public          # Static Media & Icons
- ┃ ┣ 📂 src             # Application Source
- ┃ ┃ ┣ 📂 components    # Layout & Dashboard UI
- ┃ ┃ ┣ 📂 context       # Activity Tracking Context
- ┃ ┃ ┣ 📂 pages         # Core Workflows (Search, Auth, Users, etc.)
- ┃ ┃ ┣ 📂 services      # API Client Utilities
- ┃ ┃ ┣ 📜 App.tsx       # Main App Component
- ┃ ┃ ┣ 📜 index.css     # Global Styles
- ┃ ┃ ┗ 📜 index.tsx     # React Entry Point
- ┃ ┗ 📜 package.json    # Frontend Dependencies
- ┣ 📂 src               # Node.js Core Backend
- ┃ ┣ 📂 models          # Data Entity Definitions
- ┃ ┣ 📂 routes          # API Resource Handlers
- ┃ ┣ 📂 services        # FHIR & Mapping Business Logic
- ┃ ┣ 📂 tests           # Verification Suite
- ┃ ┣ 📂 utils           # Shared Utilities
- ┃ ┗ 📜 server.js       # Core API Server
- ┣ 📂 scripts           # Data Utility Scripts
- ┃ ┗ 📜 generate_namaste_data.js # Data Generation Script
- ┣ 📜 .env              # Environment Variables
- ┣ 📜 package.json      # Node.js Dependencies & Scripts
- ┣ 📜 project_details.txt # Detailed project documentation
- ┣ 📜 vercel.json       # Vercel Deployment Configuration
- ┣ 📜 verify_api.js     # API Verification Script
- ┗ 📜 README.md         # Full Documentation
+📦 Ayush-FHIR
+ ┣ 📂 api                          # Serverless Deployment Bundle (Vercel)
+ ┃ ┣ 📂 data                       # Standardized CSV Datasets
+ ┃ ┃ ┗ 📜 sample-namaste.csv       # 1,000+ Standardized AYUSH Terminology Records
+ ┃ ┗ 📜 index.js                   # Vercel Serverless Function Handler & Cold-Start Loader
+ ┣ 📂 frontend                     # React 18 + TypeScript Client Application
+ ┃ ┣ 📂 public                     # Static Media, Logos & HTML Shell
+ ┃ ┃ ┣ 📜 favicon.svg              # Application Favicon
+ ┃ ┃ ┣ 📜 index.html               # SPA Entry Point
+ ┃ ┃ ┗ 📜 project_banner.png       # Project Visual Banner
+ ┃ ┣ 📂 src                        # Frontend Application Source Code
+ ┃ ┃ ┣ 📂 components               # Modular UI Components
+ ┃ ┃ ┃ ┣ 📂 Common                 # Shared UI Elements (LoadingSpinner.tsx)
+ ┃ ┃ ┃ ┣ 📂 Dashboard              # Widgets (QuickActions, QuickStats, RecentActivity)
+ ┃ ┃ ┃ ┗ 📂 Layout                 # Structural Layout (Header, Sidebar, Layout)
+ ┃ ┃ ┣ 📂 context                  # State Management Contexts (ThemeContext, ActivityContext)
+ ┃ ┃ ┣ 📂 pages                    # 11 Core Functional Workflows
+ ┃ ┃ ┃ ┣ 📜 AdminPage.tsx          # System Admin & In-Memory Store Controls
+ ┃ ┃ ┃ ┣ 📜 AnalyticsPage.tsx      # Interactive Visual Analytics (Recharts)
+ ┃ ┃ ┃ ┣ 📜 AuthPage.tsx           # ABHA OAuth Simulation & Token Management
+ ┃ ┃ ┃ ┣ 📜 Dashboard.tsx          # Main Clinical KPI Dashboard
+ ┃ ┃ ┃ ┣ 📜 ExportPage.tsx         # Multi-format Data Exporter (JSON/CSV/FHIR)
+ ┃ ┃ ┃ ┣ 📜 FHIRPage.tsx           # Interactive HL7 FHIR Resource Explorer
+ ┃ ┃ ┃ ┣ 📜 SearchPage.tsx         # Real-time Fuzzy Terminology Search
+ ┃ ┃ ┃ ┣ 📜 SystemSettingsPage.tsx # Microservice Endpoints & System Configurations
+ ┃ ┃ ┃ ┣ 📜 TranslationPage.tsx    # Bidirectional Terminology Translator (NAMASTE <=> ICD-11)
+ ┃ ┃ ┃ ┣ 📜 UploadPage.tsx         # Drag-and-Drop CSV Ingestion & Validation
+ ┃ ┃ ┃ ┗ 📜 UserManagementPage.tsx # Role-Based Access Control (Admin, Doctor, Researcher)
+ ┃ ┃ ┣ 📂 services                 # API Client Utilities (api.ts - Axios Interceptors)
+ ┃ ┃ ┣ 📜 App.tsx                  # Main App Component & Route Lazy Loading
+ ┃ ┃ ┣ 📜 index.css                # Global Tailwind CSS Directives & Styles
+ ┃ ┃ ┗ 📜 index.tsx                # React DOM Initialization
+ ┃ ┣ 📜 package.json               # Frontend Dependencies & Build Scripts
+ ┃ ┣ 📜 postcss.config.js          # PostCSS Configuration
+ ┃ ┗ 📜 tailwind.config.js         # Tailwind Design System Configuration
+ ┣ 📂 src                          # Node.js + Express Core Microservice
+ ┃ ┣ 📂 models                     # Data Entity Definitions
+ ┃ ┃ ┗ 📜 NamesteTerm.js           # NAMASTE Term Model, Trigram Scoring & Validation
+ ┃ ┣ 📂 routes                     # API Route Handlers
+ ┃ ┃ ┣ 📜 adminRoutes.js           # /admin Endpoints (Ingest, Statistics, Clear)
+ ┃ ┃ ┣ 📜 authRoutes.js            # /auth Endpoints (ABHA OAuth Simulation)
+ ┃ ┃ ┣ 📜 fhirRoutes.js            # /fhir Endpoints (CodeSystem & ConceptMap)
+ ┃ ┃ ┣ 📜 icdRoutes.js             # /api/icd Endpoints (WHO ICD-11 Search)
+ ┃ ┃ ┗ 📜 translationRoutes.js     # /api/translation Endpoints (Bidirectional Translation)
+ ┃ ┣ 📂 services                   # Core Business Logic Services
+ ┃ ┃ ┣ 📜 auditService.js          # FHIR AuditEvent & Provenance Resource Generators
+ ┃ ┃ ┣ 📜 csvParser.js             # High-Speed Streaming CSV Parser & Validator
+ ┃ ┃ ┣ 📜 dataStore.js             # In-Memory Store, Trigram Fuzzy Index & Stats Engine
+ ┃ ┃ ┣ 📜 fhirService.js           # HL7 FHIR R4 Resource Generator (CodeSystem, ConceptMap)
+ ┃ ┃ ┗ 📜 icdService.js            # WHO ICD-11 Client & Token Lifecycle Management
+ ┃ ┣ 📂 tests                      # Verification & Integration Test Suite
+ ┃ ┃ ┣ 📜 api.test.js              # Core API Endpoint Integration Tests
+ ┃ ┃ ┣ 📜 auth.test.js             # ABHA Token & Authorization Tests
+ ┃ ┃ ┣ 📜 fhir.test.js             # FHIR Resource Schema Tests
+ ┃ ┃ ┣ 📜 icd.test.js              # WHO ICD-11 Service Tests
+ ┃ ┃ ┗ 📜 translation.test.js      # Terminology Mapping & Translation Tests
+ ┃ ┣ 📂 utils                      # Cross-Platform Utilities
+ ┃ ┃ ┗ 📜 paths.js                 # Environment-Aware Data Path Resolver (Local / Serverless)
+ ┃ ┗ 📜 server.js                  # Master Express API Server Configuration & Startup
+ ┣ 📂 scripts                      # Data Utility Scripts
+ ┃ ┗ 📜 generate_namaste_data.js   # Procedural Synthetic AYUSH Dataset Generator
+ ┣ 📜 .env                         # Local Environment Variables
+ ┣ 📜 .env.example                 # Environment Configuration Template
+ ┣ 📜 .gitignore                   # Git Ignore Configuration
+ ┣ 📜 package.json                 # Node.js Root Dependencies & Scripts
+ ┣ 📜 package-lock.json            # Deterministic Dependency Lock
+ ┣ 📜 project_details.txt          # Architectural Specifications & System Documentation
+ ┣ 📜 vercel.json                  # Vercel Deployment & URL Rewrite Configuration
+ ┣ 📜 verify_api.js                # End-to-End API Health & Search Verification Script
+ ┗ 📜 README.md                    # Project Documentation
 ```
 
 ---
@@ -107,8 +147,8 @@ To create a seamless, standardized, and secure bridge between ancient medical wi
 1. **Clone the repository**
 
     ```bash
-    git clone https://github.com/ajaygangwar945/SIH.git
-    cd SIH
+    git clone https://github.com/ajaygangwar945/Ayush-FHIR.git
+    cd Ayush-FHIR
     ```
 
 2. **Install Backend Dependencies**
